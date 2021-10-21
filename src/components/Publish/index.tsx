@@ -1,7 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 import { Formik, FormikState } from 'formik'
 import { usePublish } from '@hooks/usePublish'
-import styles from './index.module.css'
 import { initialValues, validationSchema } from './_constants'
 import {
   transformPublishFormToMetadata,
@@ -12,13 +11,17 @@ import { Logger, Metadata } from '@oceanprotocol/lib'
 import { useAccountPurgatory } from '@hooks/useAccountPurgatory'
 import { useWeb3 } from '@context/Web3'
 import { FormPublishData } from './_types'
+import PageHeader from '@shared/Page/PageHeader'
+import Title from './Title'
+import styles from './index.module.css'
+import FormPublish from './FormPublish'
 
 const formName = 'ocean-publish-form'
 
 export default function PublishPage({
   content
 }: {
-  content: { warning: string }
+  content: { title: string; description: string; warning: string }
 }): ReactElement {
   const { accountId } = useWeb3()
   const { isInPurgatory, purgatoryData } = useAccountPurgatory(accountId)
@@ -77,19 +80,23 @@ export default function PublishPage({
     }
   }
 
-  return isInPurgatory && purgatoryData ? null : (
-    <Formik
-      initialValues={initialValues}
-      initialStatus="empty"
-      validationSchema={validationSchema}
-      onSubmit={async (values, { resetForm }) => {
-        // kick off publishing
-        await handleSubmit(values, resetForm)
-      }}
-    >
-      {({ values }) => {
-        return <>Hello</>
-      }}
-    </Formik>
+  return (
+    <>
+      <PageHeader title={<Title />} description={content.description} />
+
+      {isInPurgatory && purgatoryData ? null : (
+        <Formik
+          initialValues={initialValues}
+          initialStatus="empty"
+          validationSchema={validationSchema}
+          onSubmit={async (values, { resetForm }) => {
+            // kick off publishing
+            await handleSubmit(values, resetForm)
+          }}
+        >
+          <FormPublish />
+        </Formik>
+      )}
+    </>
   )
 }

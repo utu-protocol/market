@@ -10,7 +10,12 @@ export default function PageGatsbyPublish(props: PageProps): ReactElement {
 
   return (
     <OceanProvider>
-      <Page title={title} description={description} uri={props.uri}>
+      <Page
+        title={title}
+        description={description}
+        uri={props.uri}
+        noPageHeader
+      >
         <PagePublish content={content} />
       </Page>
     </OceanProvider>
@@ -19,9 +24,7 @@ export default function PageGatsbyPublish(props: PageProps): ReactElement {
 
 export const contentQuery = graphql`
   query PublishPageQuery {
-    content: allFile(
-      filter: { relativePath: { eq: "pages/publish/index.json" } }
-    ) {
+    content: allFile(filter: { relativePath: { eq: "publish/index.json" } }) {
       edges {
         node {
           childPublishJson {

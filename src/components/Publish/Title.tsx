@@ -2,18 +2,17 @@ import React, { ReactElement } from 'react'
 import NetworkName from '@shared/NetworkName'
 import Tooltip from '@shared/atoms/Tooltip'
 import { useWeb3 } from '@context/Web3'
-import styles from './FormTitle.module.css'
+import styles from './Title.module.css'
 
 import { graphql, useStaticQuery } from 'gatsby'
 
 const query = graphql`
   query {
-    content: allFile(
-      filter: { relativePath: { eq: "pages/publish/index.json" } }
-    ) {
+    content: allFile(filter: { relativePath: { eq: "publish/index.json" } }) {
       edges {
         node {
           childPublishJson {
+            title
             tooltipNetwork
           }
         }
@@ -22,21 +21,23 @@ const query = graphql`
   }
 `
 
-export default function FormTitle({ title }: { title: string }): ReactElement {
+export default function Title(): ReactElement {
   const data = useStaticQuery(query)
-  const contentTooltip =
-    data.content.edges[0].node.childPublishJson.tooltipNetwork
+  const content = data.content.edges[0].node.childPublishJson
   const { networkId } = useWeb3()
 
   return (
-    <h2 className={styles.title}>
-      {title}{' '}
+    <>
+      {content.title}{' '}
       {networkId && (
         <>
           into <NetworkName networkId={networkId} className={styles.network} />
-          <Tooltip content={contentTooltip} className={styles.tooltip} />
+          <Tooltip
+            content={content.tooltipNetwork}
+            className={styles.tooltip}
+          />
         </>
       )}
-    </h2>
+    </>
   )
 }
