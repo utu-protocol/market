@@ -56,7 +56,7 @@ const query = graphql`
   }
 `
 
-export default function Pricing(): ReactElement {
+export default function PricingFields(): ReactElement {
   // Get content
   const data = useStaticQuery(query)
   const content = data.content.edges[0].node.childContentJson.create

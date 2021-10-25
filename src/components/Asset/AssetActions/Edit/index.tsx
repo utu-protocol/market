@@ -13,8 +13,6 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { useWeb3 } from '@context/Web3'
 import { useOcean } from '@context/Ocean'
 import { setMinterToDispenser, setMinterToPublisher } from '@utils/freePrice'
-import { MetadataPreview } from '../../../Publish/MetadataPreview'
-import MetadataFeedback from '../../../Publish/MetadataFeedback'
 
 const contentQuery = graphql`
   query EditMetadataQuery {
@@ -173,19 +171,7 @@ export default function Edit({
     >
       {({ isSubmitting, values, initialValues }) =>
         isSubmitting || hasFeedback ? (
-          <MetadataFeedback
-            title="Updating Data Set"
-            error={error}
-            success={success}
-            setError={setError}
-            successAction={{
-              name: content.form.successAction,
-              onClick: async () => {
-                await refreshDdo()
-                setShowEdit(false)
-              }
-            }}
-          />
+          <div />
         ) : (
           <>
             <p className={styles.description}>{content.description}</p>
@@ -200,7 +186,6 @@ export default function Edit({
               />
 
               <aside>
-                <MetadataPreview values={values} />
                 <Web3Feedback />
               </aside>
 

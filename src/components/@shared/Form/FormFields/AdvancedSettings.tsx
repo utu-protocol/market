@@ -4,9 +4,9 @@ import Button from '@shared/atoms/Button'
 import { Field } from 'formik'
 import styles from './AdvancedSettings.module.css'
 
-export default function AdvancedSettings(prop: {
+export default function AdvancedSettings(props: {
   content: FormStepContent
-  handleFieldChange: (
+  handleFieldChange?: (
     e: ChangeEvent<HTMLInputElement>,
     field: FormFieldProps
   ) => void
@@ -29,7 +29,7 @@ export default function AdvancedSettings(prop: {
         Advanced Settings
       </Button>
       {showAdvancedSettings &&
-        prop.content.data.map(
+        props.content.map(
           (field: FormFieldProps) =>
             field.advanced === true && (
               <Field
