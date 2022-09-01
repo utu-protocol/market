@@ -76,7 +76,7 @@
     "@storybook/addon-essentials": "^6.5.7",
     "@storybook/addon-storyshots": "^6.5.7",
     "@storybook/builder-webpack5": "^6.5.7",
-    "@storybook/manager-webpack5": "^6.5.7",
+    "@storybook/manager-webpack5": "^6.5.10",
     "@storybook/react": "^6.5.7",
     "@storybook/testing-library": "^0.0.11",
     "@storybook/testing-react": "^1.3.0",
