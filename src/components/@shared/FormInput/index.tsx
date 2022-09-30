@@ -20,7 +20,6 @@ import FormHelp from './Help'
 const cx = classNames.bind(styles)
 
 export interface InputProps {
-  textVisible?: boolean
   name: string
   label?: string | ReactNode
   placeholder?: string
@@ -33,6 +32,8 @@ export interface InputProps {
   sortOptions?: boolean
   additionalComponent?: ReactElement
   value?: string | number
+  children?: ReactNode
+  width: string
   onChange?(
     e:
       | FormEvent<HTMLInputElement>
@@ -95,7 +96,9 @@ export default function Input(props: Partial<InputProps>): ReactElement {
     form,
     field,
     disclaimer,
-    disclaimerValues
+    disclaimerValues,
+    children,
+    width
   } = props
 
   const isFormikField = typeof field !== 'undefined'
@@ -113,7 +116,6 @@ export default function Input(props: Partial<InputProps>): ReactElement {
   })
 
   const [disclaimerVisible, setDisclaimerVisible] = useState(true)
-  const [textVisible, setTextVisible] = useState<boolean>(false)
 
   useEffect(() => {
     if (!isFormikField) return
@@ -124,7 +126,6 @@ export default function Input(props: Partial<InputProps>): ReactElement {
           props.form?.values[parsedFieldName[0]]?.[parsedFieldName[1]]
         )
       )
-      setTextVisible(textVisible)
     }
   }, [isFormikField, props.form?.values])
 
@@ -142,7 +143,7 @@ export default function Input(props: Partial<InputProps>): ReactElement {
         )}
       </Label>
       <div>
-        <InputElement size={size} {...field} {...props} />
+        <InputElement width={width} size={size} {...field} {...props} />
         {help && prominentHelp && <FormHelp>{help}</FormHelp>}
         {isFormikField && hasFormikError && (
           <div className={styles.error}>
@@ -153,9 +154,7 @@ export default function Input(props: Partial<InputProps>): ReactElement {
           <Disclaimer visible={disclaimerVisible}>{disclaimer}</Disclaimer>
         )}
         {additionalComponent && additionalComponent}
-        {textVisible ? (
-          <FormHelp>Defaults to your OS setting, select to override.</FormHelp>
-        ) : null}
+        {children && children}
       </div>
     </div>
   )
