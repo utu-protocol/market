@@ -20,7 +20,6 @@ import FormHelp from './Help'
 const cx = classNames.bind(styles)
 
 export interface InputProps {
-  textVisible?: boolean
   name: string
   label?: string | ReactNode
   placeholder?: string
@@ -33,6 +32,8 @@ export interface InputProps {
   sortOptions?: boolean
   additionalComponent?: ReactElement
   value?: string | number
+  children?: ReactNode
+  width: string
   onChange?(
     e:
       | FormEvent<HTMLInputElement>
@@ -93,7 +94,9 @@ export default function Input(props: Partial<InputProps>): ReactElement {
     form,
     field,
     disclaimer,
-    disclaimerValues
+    disclaimerValues,
+    children,
+    width
   } = props
 
   const isFormikField = typeof field !== 'undefined'
@@ -111,7 +114,6 @@ export default function Input(props: Partial<InputProps>): ReactElement {
   })
 
   const [disclaimerVisible, setDisclaimerVisible] = useState(true)
-  const [textVisible, setTextVisible] = useState<boolean>(false)
 
   useEffect(() => {
     if (!isFormikField) return
@@ -122,7 +124,6 @@ export default function Input(props: Partial<InputProps>): ReactElement {
           props.form?.values[parsedFieldName[0]]?.[parsedFieldName[1]]
         )
       )
-      setTextVisible(textVisible)
     }
   }, [isFormikField, props.form?.values])
 
@@ -139,7 +140,7 @@ export default function Input(props: Partial<InputProps>): ReactElement {
           <Tooltip content={<Markdown text={help} />} />
         )}
       </Label>
-      <InputElement size={size} {...field} {...props} />
+      <InputElement width={width} size={size} {...field} {...props} />
       {help && prominentHelp && <FormHelp>{help}</FormHelp>}
 
       {field?.name !== 'files' && isFormikField && hasFormikError && (
@@ -152,6 +153,7 @@ export default function Input(props: Partial<InputProps>): ReactElement {
         <Disclaimer visible={disclaimerVisible}>{disclaimer}</Disclaimer>
       )}
       {additionalComponent && additionalComponent}
+      {children && children}
     </div>
   )
 }
