@@ -71,6 +71,8 @@ export default function AssetContent({
 
         <div className={styles.actions}>
           <AssetActions asset={asset} />
+          {/* <AssetSignals className={styles2.actions} items={[]} /> */}
+
           {isOwner && isAssetNetwork && (
             <div className={styles.ownerActions}>
               <Button style="text" size="small" to={`/asset/${asset?.id}/edit`}>

@@ -1,8 +1,10 @@
-import React, { ReactElement, useState, useEffect } from 'react'
+/* eslint-disable react/no-children-prop */
+import React, { ReactElement, useEffect, useState } from 'react'
 import Compute from './Compute'
 import Consume from './Download'
-import { FileInfo, LoggerInstance, Datatoken } from '@oceanprotocol/lib'
+import { Datatoken, FileInfo, LoggerInstance } from '@oceanprotocol/lib'
 import Tabs, { TabsItem } from '@shared/atoms/Tabs'
+import AssetSignals from '@shared/atoms/AssetSignals'
 import { compareAsBN } from '@utils/numbers'
 import { useAsset } from '@context/Asset'
 import { useWeb3 } from '@context/Web3'
@@ -153,6 +155,7 @@ export default function AssetActions({
   return (
     <>
       <Tabs items={tabs} className={styles.actions} />
+      <AssetSignals className={styles.actions} asset={asset} />
       <Web3Feedback
         networkId={asset?.chainId}
         isAssetNetwork={isAssetNetwork}

@@ -8,10 +8,11 @@ import { useUserPreferences } from '@context/UserPreferences'
 import { useIsMounted } from '@hooks/useIsMounted'
 import { getAccessDetailsForAssets } from '@utils/accessDetailsAndPricing'
 import { useWeb3 } from '@context/Web3'
+import { AssetSignalItem } from '@context/Signals/_types'
 
 const cx = classNames.bind(styles)
 
-function LoaderArea() {
+export function LoaderArea() {
   return (
     <div className={styles.loaderWrap}>
       <Loader />
@@ -28,6 +29,8 @@ declare type AssetListProps = {
   onPageChange?: React.Dispatch<React.SetStateAction<number>>
   className?: string
   noPublisher?: boolean
+  signalItems?: AssetSignalItem[]
+  help: any
 }
 
 export default function AssetList({
@@ -38,14 +41,14 @@ export default function AssetList({
   isLoading,
   onPageChange,
   className,
-  noPublisher
+  noPublisher,
+  help
 }: AssetListProps): ReactElement {
   const { chainIds } = useUserPreferences()
   const { accountId } = useWeb3()
   const [assetsWithPrices, setAssetsWithPrices] = useState<AssetExtended[]>()
   const [loading, setLoading] = useState<boolean>(isLoading)
   const isMounted = useIsMounted()
-
   useEffect(() => {
     if (!assets) return
 
