@@ -25,7 +25,7 @@ export function AssetSignalValue({
           ? signal?.id
           : item.name + '-' + item.assetId + '-' + index
       }
-      className={className ? className : assetStyles.symbol2}
+      className={className || assetStyles.symbol2}
     >
       <UtuIcon className={styles.icon} />
       <div className={styles.signalValue}>{item ? item.value : ''}</div>
@@ -40,7 +40,6 @@ export default function AssetTeaserSignals({
   assetId: string
   signalItems: SignalOriginItem[]
 }) {
-  let itemsList: any[] = []
   // only show list view enabled signals
   const [filteredSignals, setFilteredSignals] = useState<any[]>([])
   useEffect(() => {
@@ -49,22 +48,18 @@ export default function AssetTeaserSignals({
     }
   }, [signalItems])
 
-  const signalsSorted: any[] = useMemo(() => {
-    console.log('filteredSignals ', filteredSignals)
+  const signalsSorted: unknown[] = useMemo(() => {
     return filteredSignals
+      .filter((signal) => signal.signals.length > 0)
       .map((signal) => {
-        if (signal.signals.length > 0) {
-          return signal.signals
-        }
+        return signal.signals
       })
       .flat()
       .sort((a: AssetSignalItem, b: AssetSignalItem) => {
-        // @ts-ignore
-        if (isNaN(a.value) && !isNaN(b.value)) {
+        if (isNaN(a.value as number) && !isNaN(b.value as number)) {
           return -1
         }
-        // @ts-ignore
-        if (!isNaN(a.value) && isNaN(b.value)) {
+        if (!isNaN(a.value as number) && isNaN(b.value as number)) {
           return 1
         }
         return 0
@@ -74,29 +69,35 @@ export default function AssetTeaserSignals({
   const signalsNumbers: any[] = useMemo(() => {
     return signalsSorted
       .filter((item) => item)
-      .filter((item) => {
-        console.log(isNaN(item.value))
-        return !isNaN(item.value)
+      .filter((item: AssetSignalItem) => {
+        return !isNaN(item.value as number)
       })
   }, [signalsSorted])
 
   const signalsText: any[] = useMemo(() => {
     return signalsSorted
       .filter((item) => item)
-      .filter((item) => {
-        return isNaN(item.value)
+      .filter((item: AssetSignalItem) => {
+        return isNaN(item.value as number)
       })
   }, [signalsSorted])
 
   const signalsNumbersElements: any[] = useMemo(() => {
     return signalsNumbers.map((item: AssetSignalItem, index: number) => {
-      return <AssetSignalValue item={item} index={index} />
+      return (
+        <AssetSignalValue
+          key={`asset-signal-value-1-${item.assetId}-${index}`}
+          item={item}
+          index={index}
+        />
+      )
     })
   }, [signalsNumbers])
   const signalsTextElements: any[] = useMemo(() => {
     return signalsText.map((item: AssetSignalItem, index: number) => {
       return (
         <AssetSignalValue
+          key={`asset-signal-value-2-${item.assetId}-${index}`}
           item={item}
           index={index}
           className={assetStyles.symbol2Long}
@@ -104,8 +105,6 @@ export default function AssetTeaserSignals({
       )
     })
   }, [signalsText])
-
-  console.log('signalsNumbers ', signalsNumbers)
 
   const noSignalsEl = (
     <Link href={`/asset/${assetId}`}>
