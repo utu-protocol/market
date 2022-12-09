@@ -48,8 +48,7 @@ export default function AssetTeaserSignals({
     }
   }, [signalItems])
 
-  const signalsSorted: any[] = useMemo(() => {
-    console.log('filteredSignals ', filteredSignals)
+  const signalsSorted: unknown[] = useMemo(() => {
     return filteredSignals
       .filter((signal) => signal.signals.length > 0)
       .map((signal) => {
@@ -70,17 +69,16 @@ export default function AssetTeaserSignals({
   const signalsNumbers: any[] = useMemo(() => {
     return signalsSorted
       .filter((item) => item)
-      .filter((item) => {
-        console.log(isNaN(item.value))
-        return !isNaN(item.value)
+      .filter((item: AssetSignalItem) => {
+        return !isNaN(item.value as number)
       })
   }, [signalsSorted])
 
   const signalsText: any[] = useMemo(() => {
     return signalsSorted
       .filter((item) => item)
-      .filter((item) => {
-        return isNaN(item.value)
+      .filter((item: AssetSignalItem) => {
+        return isNaN(item.value as number)
       })
   }, [signalsSorted])
 
@@ -107,8 +105,6 @@ export default function AssetTeaserSignals({
       )
     })
   }, [signalsText])
-
-  console.log('signalsNumbers ', signalsNumbers)
 
   const noSignalsEl = (
     <Link href={`/asset/${assetId}`}>
