@@ -125,8 +125,9 @@ export default function AssetTeaserSignals({
       <div>
         <Link href={`/asset/${assetId}`} legacyBehavior>
           <a className={styles.signalContainer}>
-            <div className={styles.signal}>
-              {signalsNumbersElements}
+            <div className={styles.signal}>{signalsNumbersElements}</div>
+            <div className={styles.signalsContainer}>
+              <div className={styles.sigcontainer}>{signalsTextElements} </div>
               <div className={styles.signalTooltipContainer}>
                 <Tooltip
                   className={styles.signalTooltip}
@@ -134,7 +135,6 @@ export default function AssetTeaserSignals({
                 />
               </div>
             </div>
-            <div className={styles.sigcontainer}>{signalsTextElements} </div>
           </a>
         </Link>
       </div>

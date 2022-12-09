@@ -30,8 +30,7 @@
 
 .sigcontainer {
   flex-direction: column;
-  min-width: 100%;
-  margin: 0 0 0 0.2rem;
+  flex: 1 1 0%;
 }
 
 .signalValue {
@@ -43,9 +42,14 @@
 }
 
 .signalTooltipContainer {
-  display: flex;
+  /* display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: center; */
+  padding-top: 8px;
+  flex: none;
+  display: block;
+  position: relative;
+  margin-right: -0.5rem;
 }
 
 .signalTooltip {
@@ -69,6 +73,7 @@
   min-width: 1rem;
   height: 1.4rem;
   margin-right: 0.5rem;
+  padding-top: 2px;
 }
 
 /* .detailLine {
@@ -80,3 +85,9 @@
   display: flex;
   justify-content: flex-end;
 } */
+
+.signalsContainer {
+  display: flex;
+  /* flex-direction: row-reverse; */
+  justify-content: space-between;
+}

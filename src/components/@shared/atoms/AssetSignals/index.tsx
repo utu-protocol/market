@@ -46,10 +46,13 @@ export default function AssetSignals({
                 {sig ? (
                   <div className={styles.assetListTitle}>
                     <div className={styles.assetListTitleName}>
-                      <p>
+                      <div className={styles.assetListIconContainer}>
                         <UtuIcon className={styles.assetListIcon} />
+                      </div>
+                      <p className={styles.assetListTitleText}>
+                        {' '}
+                        {sig.name ? sig.name : item.title}{' '}
                       </p>
-                      <p> {sig.name ? sig.name : item.title} </p>
                     </div>
                     <div className={styles.assetListTitleNumber}>
                       {sig.value ? sig.value : 'N/A'}
@@ -70,10 +73,10 @@ export default function AssetSignals({
               {item.signals ? (
                 <div className={styles.assetListTitle}>
                   <div className={styles.assetListTitleName}>
-                    <p>
+                    <div className={styles.assetListIconContainer}>
                       <UtuIcon className={styles.assetListIcon} />
-                    </p>
-                    <p>
+                    </div>
+                    <p className={styles.assetListTitleText}>
                       {' '}
                       {item.signals[0].name
                         ? item.signals[0].name
@@ -109,10 +112,12 @@ export default function AssetSignals({
                 {item.signals.length > 0 ? (
                   <div className={styles.assetListTitle}>
                     <div className={styles.assetListTitleName}>
-                      <p>
+                      <div className={styles.assetListIconContainer}>
                         <UtuIcon className={styles.assetListIcon} />
+                      </div>
+                      <p className={styles.assetListTitleText}>
+                        {sig.name ? sig.name : item.title}{' '}
                       </p>
-                      <p> {sig.name ? sig.name : item.title} </p>
                     </div>
                     <div className={styles.assetListTitleNumber}>
                       {sig ? sig.value : 'N/A'}
@@ -151,15 +156,14 @@ export default function AssetSignals({
         <div className={styles.AssetSignalsContent}>
           <div className={styles.AssetSignalsContentTitle}>
             <h3>Asset Signal</h3>
-            <h3
-              onClick={() => {
-                setOpenUp(!openUp)
-              }}
-              className={styles.details}
-            >
+            <h3 className={styles.details}>
               {openUp ? 'HIDE DETAILS' : 'SHOW DETAILS'}
 
-              <div>
+              <div
+                onClick={() => {
+                  setOpenUp(!openUp)
+                }}
+              >
                 {' '}
                 <DetailsArrow
                   className={

@@ -53,16 +53,22 @@
 .assetListTitleNumber {
   display: flex;
   align-items: center;
+  text-align: right;
 }
 
 .assetListTitleName {
   display: flex;
   align-items: baseline;
+  flex: 1 1 0%;
 }
 
 .assetListTitleName svg {
   margin-right: 0.5rem;
   margin-left: auto;
+}
+.assetListTitleText {
+  flex: 1 1 0%;
+  padding-right: 0.5rem;
 }
 
 .assetListIcon {
@@ -71,6 +77,12 @@
   width: 1em;
   height: 1em;
   margin-left: 0.5rem;
+  padding-top: 2px;
+  padding-right: 2px;
+  flex: none;
+}
+.assetListIconContainer {
+  flex: none;
 }
 
 .tabList {
