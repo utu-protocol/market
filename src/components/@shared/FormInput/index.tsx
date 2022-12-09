@@ -33,6 +33,7 @@ export interface InputProps {
   type?: string
   options?: string[] | AssetSelectionAsset[] | BoxSelectionOption[]
   sortOptions?: boolean
+  fields?: FieldInputProps<any>[]
   additionalComponent?: ReactElement
   value?: string | number
   content?: string

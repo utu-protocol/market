@@ -151,14 +151,15 @@ export default function AssetSignals({
         <div className={styles.AssetSignalsContent}>
           <div className={styles.AssetSignalsContentTitle}>
             <h3>Asset Signal</h3>
-            <h3 className={styles.details}>
+            <h3
+              onClick={() => {
+                setOpenUp(!openUp)
+              }}
+              className={styles.details}
+            >
               {openUp ? 'HIDE DETAILS' : 'SHOW DETAILS'}
 
-              <div
-                onClick={() => {
-                  setOpenUp(!openUp)
-                }}
-              >
+              <div>
                 {' '}
                 <DetailsArrow
                   className={

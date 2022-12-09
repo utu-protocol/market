@@ -26,8 +26,8 @@ function MenuLink({ item }: { item: MenuItem }) {
       : styles.link
 
   return (
-    <Link key={item.name} href={item.link}>
-      <a className={classes}>{item.name}</a>
+    <Link key={item.name} href={item.link} className={classes}>
+      {item.name}
     </Link>
   )
 }
@@ -37,11 +37,9 @@ export default function Menu(): ReactElement {
 
   return (
     <nav className={styles.menu}>
-      <Link href="/">
-        <a className={styles.logo}>
-          <Logo noWordmark />
-          <h1 className={styles.title}>{siteContent?.siteTitle}</h1>
-        </a>
+      <Link href="/" className={styles.logo}>
+        <Logo noWordmark />
+        <h1 className={styles.title}>{siteContent?.siteTitle}</h1>
       </Link>
 
       <ul className={styles.navigation}>

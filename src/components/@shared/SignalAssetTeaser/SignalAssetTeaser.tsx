@@ -62,7 +62,7 @@ export default function SignalAssetTeaser({
   // }
   return (
     <article className={`${styles.teaser} ${styles[type]}`}>
-      <Link href={`/asset/${asset.id}`}>
+      <Link href={`/asset/${asset.id}`} legacyBehavior>
         <a className={styles.link}>
           <aside className={styles.detailLine}>
             <AssetType

@@ -107,7 +107,7 @@ export default function AssetTeaserSignals({
   }, [signalsText])
 
   const noSignalsEl = (
-    <Link href={`/asset/${assetId}`}>
+    <Link href={`/asset/${assetId}`} legacyBehavior>
       <a className={styles.signalContainer}>
         <div className={styles.signal}> No Signals Available</div>
       </a>
@@ -123,7 +123,7 @@ export default function AssetTeaserSignals({
 
     return (
       <div>
-        <Link href={`/asset/${assetId}`}>
+        <Link href={`/asset/${assetId}`} legacyBehavior>
           <a className={styles.signalContainer}>
             <div className={styles.signal}>
               {signalsNumbersElements}
